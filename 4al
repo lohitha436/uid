@@ -1,0 +1,109 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MainApp());
+}
+
+class MainApp extends StatelessWidget {
+  const MainApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const HomeScreen(),
+      },
+    );
+  }
+}
+
+// Home Screen with Morning to Night Mood Switch
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  bool isMorning = true;  // Start with morning mode
+
+  // Toggle the morning and night mode
+  void toggleMood() {
+    setState(() {
+      isMorning = !isMorning;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: AnimatedContainer(
+        duration: const Duration(seconds: 1),
+        color: isMorning ? Colors.blue[200] : Colors.indigo[900], // Change background color
+        curve: Curves.easeInOut,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              AnimatedSwitcher(
+                duration: const Duration(seconds: 1),
+                child: isMorning
+                    ? const Icon(
+                  Icons.wb_sunny,
+                  size: 100,
+                  color: Colors.orange,
+                )
+                    : const Icon(
+                  Icons.nights_stay,
+                  size: 100,
+                  color: Colors.white70,
+                ),
+              ),
+              const SizedBox(height: 20),
+              AnimatedSwitcher(
+                duration: const Duration(seconds: 1),
+                child: isMorning
+                    ? const Text(
+                  'Good Morning! ☀️',
+                  key: ValueKey('morning'),
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                )
+                    : const Text(
+                  'Good Night! 🌙',
+                  key: ValueKey('night'),
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              GestureDetector(
+                onTap: toggleMood,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 50),
+                  decoration: BoxDecoration(
+                    color: isMorning ? Colors.orange : Colors.indigo[700],
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  child: Text(
+                    isMorning ? 'Switch to Night 🌙' : 'Switch to Morning ☀️',
+                    style: const TextStyle(fontSize: 18, color: Colors.white),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
