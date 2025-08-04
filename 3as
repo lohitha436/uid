@@ -1,0 +1,132 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Responsive UI Demo',
+      debugShowCheckedModeBanner: false,
+      home: ResponsiveHomePage(),
+    );
+  }
+}
+
+class ResponsiveHomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // Get screen size
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    final orientation = MediaQuery.of(context).orientation;
+
+    return Scaffold(
+      // appBar: AppBar(title: Text('Responsive UI Example')),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          if (constraints.maxWidth > 800) {
+            // Large screen (e.g. tablet, desktop)
+            return _buildWideLayout();
+          } else {
+            // Small screen (e.g. phone)
+            return _buildNarrowLayout();
+          }
+        },
+      ),
+    );
+  }
+
+  Widget _buildWideLayout() {
+    // Grid or side-by-side layout for wide screens
+      return Column(
+        children: [
+          Expanded(
+            child: Row(
+              children: [
+                Expanded(
+                  child: GestureDetector(
+                    onTap: ()=>print('RCB won the Cup'),
+                  child: Container(
+                    color: Colors.redAccent,
+                    child: Center(child: Text('Top Left')),
+                  ),
+                ),
+                ),
+                Expanded(
+                  child: Container(
+                    color: Colors.lightBlueAccent,
+                    child: Center(child: Text('Top Right')),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    color: Colors.orangeAccent,
+                    child: Center(child: Text('Bottom Left')),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    color: Colors.yellowAccent,
+                    child: Center(child: Text('Bottom Right')),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      );
+    }
+
+
+  Widget _buildNarrowLayout() {
+    // Column layout for narrow screens
+    return Column(
+      children: [
+        Expanded(
+          child: Row(
+            children: [
+              Expanded(
+                child: Container(
+                  color: Colors.pinkAccent,
+                  child: Center(child: Text('Top Left')),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  color: Colors.lightBlueAccent,
+                  child: Center(child: Text('Top Right')),
+                ),
+              ),
+            ],
+          ),
+        ),
+        Expanded(
+          child: Row(
+            children: [
+              Expanded(
+                child: Container(
+                  color: Colors.greenAccent,
+                  child: Center(child: Text('Bottom Left')),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  color: Colors.deepOrangeAccent,
+                  child: Center(child: Text('Bottom Right')),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+}
