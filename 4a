@@ -1,0 +1,88 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MainApp());
+}
+
+class MainApp extends StatelessWidget {
+  const MainApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      // Define named routes here
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const HomeScreen(),
+        '/second': (context) => const SecondScreen(),
+      },
+    );
+  }
+}
+
+// Home Screen with the Start button
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              'Welcome to Flutter!',
+              style: TextStyle(fontSize: 24),
+            ),
+            const SizedBox(height: 16),
+            Image.asset(
+              'assets/images/flutter_logo.png',
+              width: 200,
+              height: 200,
+            ),
+            const SizedBox(height: 16),
+            GestureDetector(
+              onTap: () {
+                // Navigate to second screen using named route
+                Navigator.pushNamed(context, '/second');
+              },
+              child: Container(
+                width: 200,
+                height: 50,
+                color: Colors.blue,
+                child: const Center(
+                  child: Text(
+                    'Start',
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// Second Screen to navigate to
+class SecondScreen extends StatelessWidget {
+  const SecondScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Second Screen')),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            // Go back to the previous screen
+            Navigator.pop(context);
+          },
+          child: const Text('Go Back'),
+        ),
+      ),
+    );
+  }
+}
