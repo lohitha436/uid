@@ -1,0 +1,89 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(const MyApp());
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      home: ResponsiveCard(),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
+class ResponsiveCard extends StatelessWidget {
+  const ResponsiveCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: AnimatedContainer(
+        duration: const Duration(seconds: 1),
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.deepPurple, Colors.pinkAccent],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final wide = constraints.maxWidth > 600;
+
+            return Center(
+              child: Container(
+                width: wide ? 400 : 300,
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.95),
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: const [BoxShadow(blurRadius: 10, color: Colors.black26)],
+                ),
+                child: wide
+                    ? Row(
+                  children: [
+                    const Icon(Icons.star, size: 40, color: Colors.deepPurple),
+                    const SizedBox(width: 20),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: const [
+                          Text(
+                            "You're Awesome!",
+                            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(height: 5),
+                          Text("Keep building cool stuff 🚀"),
+                        ],
+                      ),
+                    ),
+                  ],
+                )
+                    : Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const [
+                    Icon(Icons.star, size: 40, color: Colors.deepPurple),
+                    SizedBox(height: 10),
+                    Text(
+                      "You're Awesome!",
+                      style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      "Keep building cool stuff 🚀",
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
