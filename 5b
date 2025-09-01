@@ -1,0 +1,81 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+void main() {
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => CounterProvider(),
+      child: const MyApp(),
+    ),
+  );
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: const Text('State Management')),
+        body: const Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SetStateCounter(),
+              SizedBox(height: 30),
+              ProviderCounter(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class SetStateCounter extends StatefulWidget {
+  const SetStateCounter({super.key});
+  @override
+  State<SetStateCounter> createState() => _SetStateCounterState();
+}
+
+class _SetStateCounterState extends State<SetStateCounter> {
+  int count = 0;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text("SetState: $count"),
+        ElevatedButton(
+          onPressed: () => setState(() => count++),
+          child: const Text("Increment"),
+        ),
+      ],
+    );
+  }
+}
+
+class CounterProvider extends ChangeNotifier {
+  int count = 0;
+  void increment() {
+    count++;
+    notifyListeners();
+  }
+}
+
+class ProviderCounter extends StatelessWidget {
+  const ProviderCounter({super.key});
+  @override
+  Widget build(BuildContext context) {
+    final counter = context.watch<CounterProvider>();
+    return Column(
+      children: [
+        Text("Provider: ${counter.count}"),
+        ElevatedButton(
+          onPressed: () => context.read<CounterProvider>().increment(),
+          child: const Text("Increment"),
+        ),
+      ],
+    );
+  }
+}
