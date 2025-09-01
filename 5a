@@ -1,0 +1,69 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(const MyApp());
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Stateless vs Stateful')),
+        body: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: const [
+              HelloCard(name: 'Lohi'), // stateless widget
+              SizedBox(height: 16),
+              CounterBox(),            // stateful widget
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// Stateless Widget Example
+class HelloCard extends StatelessWidget {
+  final String name;
+  const HelloCard({super.key, required this.name});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Text('Hello, $name!'),
+      ),
+    );
+  }
+}
+
+// Stateful Widget Example
+class CounterBox extends StatefulWidget {
+  const CounterBox({super.key});
+
+  @override
+  State<CounterBox> createState() => _CounterBoxState();
+}
+
+class _CounterBoxState extends State<CounterBox> {
+  int count = 0; // state variable
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text('Count: $count'),
+        const SizedBox(height: 8),
+        ElevatedButton(
+          onPressed: () => setState(() => count++), // updates state
+          child: const Text('Increment'),
+        ),
+      ],
+    );
+  }
+}
