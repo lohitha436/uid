@@ -1,0 +1,55 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Simple Donut App',
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Simple Donut App'),
+          backgroundColor: Colors.purple,
+        ),
+        body: Padding(
+          padding: EdgeInsets.all(16),
+          child: Column(
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Donut Button Pressed! 🍩')),
+                  );
+                },
+                child: Text('🍩 Click Me!'),
+              ),
+              SizedBox(height: 20),
+              Card(
+                elevation: 5,
+                child: Padding(
+                  padding: EdgeInsets.all(16),
+                  child: Column(
+                    children: [
+                      Text(
+                        '🍩',
+                        style: TextStyle(fontSize: 80),
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        'Yummy Donut',
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 5),
+                      Text('A kawaii-style donut inside a simple card.'),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
