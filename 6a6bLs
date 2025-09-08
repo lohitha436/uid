@@ -16,13 +16,16 @@ class MyApp extends StatelessWidget {
           padding: EdgeInsets.all(16),
           child: Column(
             children: [
-              ElevatedButton(
-                onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Donut Button Pressed! 🍩')),
-                  );
-                },
-                child: Text('🍩 Click Me!'),
+              Builder(
+                builder: (context) => ElevatedButton(
+                  onPressed: () {
+                    // This will now work without exception
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Donut Button Pressed! 🍩')),
+                    );
+                  },
+                  child: Text('🍩 Click Me!'),
+                ),
               ),
               SizedBox(height: 20),
               Card(
