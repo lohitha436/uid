@@ -1,0 +1,53 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool isDarkTheme = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: isDarkTheme ? ThemeData.dark() : ThemeData.light(),
+      home: Scaffold(
+        appBar: AppBar( 
+          title: Text(isDarkTheme ? 'Dark Theme' : 'Light Theme'),
+        ),
+        body: Center(
+          child: Column(
+            children: [
+              Image.network(
+                  "https://plus.unsplash.com/premium_photo-1731854405007-45e8ac9ed06e?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                  width: 300,
+                ),
+               SizedBox(height: 20),
+
+              ElevatedButton.icon(
+                icon: Icon(Icons.circle_outlined, color: Colors.green),
+                label: Text('Click Me', style: TextStyle(color: Colors.blue)),
+                onPressed: () => print('Button Pressed!'),
+              ),
+              SizedBox(height: 20),
+              Row(
+  mainAxisAlignment: MainAxisAlignment.center,
+  children: [
+    Text('Dark Theme'),
+    Switch(
+      value: isDarkTheme,
+      onChanged: (value) => setState(() => isDarkTheme = value),
+    ),
+  ],
+),
+
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
