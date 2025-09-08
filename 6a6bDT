@@ -1,0 +1,52 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  double sliderValue = 0.0; // 0 = day, 1 = night
+
+  @override
+  Widget build(BuildContext context) {
+    // Interpolate background color between day and night
+    Color bgColor = Color.lerp(Colors.lightBlue, Colors.indigo[900], sliderValue)!;
+
+    return MaterialApp(
+      home: Scaffold(
+        body: Container(
+          color: bgColor,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Center(
+                child: Text(
+                  '🍩',
+                  style: TextStyle(fontSize: 100),
+                ),
+              ),
+              SizedBox(height: 50),
+              Slider(
+                value: sliderValue,
+                min: 0.0,
+                max: 1.0,
+                onChanged: (val) {
+                  setState(() {
+                    sliderValue = val;
+                  });
+                },
+              ),
+              Text(
+                sliderValue < 0.5 ? 'Daytime 🌞' : 'Nighttime 🌙',
+                style: TextStyle(color: Colors.white, fontSize: 16),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
